@@ -32,4 +32,4 @@ Follow these steps to run the application:
    javac com/schoolmanagement/Main.java
    java com.schoolmanagement.Main
 
-   
+   ![Alt Text](src/resources/Menu.png)
