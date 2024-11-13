@@ -14,7 +14,7 @@ The School Management System is a Java Swing application designed to manage stud
 To run the application, you will need:
 - Java Development Kit (JDK) 8 or later.
 - A Java development environment such as Eclipse or IntelliJ IDEA.
-- SQLite JDBC driver (if using SQLite for data storage).
+- MySQL JDBC driver (if using MySQL for data storage).
 
 ## Running the Application
 Follow these steps to run the application:
