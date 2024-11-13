@@ -8,7 +8,7 @@ The School Management System is a Java Swing application designed to manage stud
 - Add, update, delete, and view teacher information.
 - Search functionality for students and teachers.
 - User-friendly graphical user interface (GUI) built with Java Swing.
-- Data storage and retrieval using a local database (e.g., SQLite).
+- Data storage and retrieval using a local database (e.g., MySQL).
 
 ## Prerequisites
 To run the application, you will need:
