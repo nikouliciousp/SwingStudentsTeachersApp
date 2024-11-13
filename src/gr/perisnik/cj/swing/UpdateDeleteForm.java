@@ -105,25 +105,21 @@ public class UpdateDeleteForm extends JFrame {
 		contentPane.add(btnUpdate);
 		
 		JButton btnEnd = new JButton("");
-		btnEnd.setBackground(Color.DARK_GRAY);
 		btnEnd.setIcon(new ImageIcon(UpdateDeleteForm.class.getResource("/resources/ends.png")));
 		btnEnd.setBounds(373, 198, 35, 23);
 		contentPane.add(btnEnd);
 		
 		JButton btnNext = new JButton("");
-		btnNext.setBackground(Color.DARK_GRAY);
 		btnNext.setIcon(new ImageIcon(UpdateDeleteForm.class.getResource("/resources/next.png")));
 		btnNext.setBounds(338, 198, 35, 23);
 		contentPane.add(btnNext);
 		
 		JButton btnPrevious = new JButton("");
-		btnPrevious.setBackground(Color.DARK_GRAY);
 		btnPrevious.setIcon(new ImageIcon(UpdateDeleteForm.class.getResource("/resources/previous.png")));
 		btnPrevious.setBounds(303, 198, 35, 23);
 		contentPane.add(btnPrevious);
 		
 		JButton btnStart = new JButton("");
-		btnStart.setBackground(Color.DARK_GRAY);
 		btnStart.setIcon(new ImageIcon(UpdateDeleteForm.class.getResource("/resources/start.png")));
 		btnStart.setBounds(267, 198, 35, 23);
 		contentPane.add(btnStart);
