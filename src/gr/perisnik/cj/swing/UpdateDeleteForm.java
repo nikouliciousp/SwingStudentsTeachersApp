@@ -13,6 +13,7 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.SwingConstants;
 import javax.swing.ImageIcon;
+import java.awt.Toolkit;
 
 public class UpdateDeleteForm extends JFrame {
 
@@ -26,6 +27,7 @@ public class UpdateDeleteForm extends JFrame {
 	 * Create the frame.
 	 */
 	public UpdateDeleteForm() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(UpdateDeleteForm.class.getResource("/resources/insertTeacher.png")));
 		setTitle("Update/Delete Teacher");
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, 450, 300);

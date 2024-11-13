@@ -11,6 +11,7 @@ import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.border.BevelBorder;
 import javax.swing.SwingConstants;
+import java.awt.Toolkit;
 
 public class SearchForm extends JFrame {
 
@@ -23,6 +24,7 @@ public class SearchForm extends JFrame {
 	 * Create the frame.
 	 */
 	public SearchForm() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(SearchForm.class.getResource("/resources/insertTeacher.png")));
 		setTitle("Search/Insert Teacher");
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, 450, 300);

@@ -10,6 +10,7 @@ import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.JSeparator;
 import javax.swing.border.BevelBorder;
+import java.awt.Toolkit;
 
 public class InsertForm extends JFrame {
 
@@ -22,6 +23,7 @@ public class InsertForm extends JFrame {
 	 * Create the frame.
 	 */
 	public InsertForm() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(InsertForm.class.getResource("/resources/insertTeacher.png")));
 		setTitle("Insert Teacher");
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
