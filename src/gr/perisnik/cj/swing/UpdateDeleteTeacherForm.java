@@ -14,6 +14,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.SwingConstants;
 import javax.swing.ImageIcon;
 import java.awt.Toolkit;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class UpdateDeleteTeacherForm extends JFrame {
 
@@ -70,6 +72,12 @@ public class UpdateDeleteTeacherForm extends JFrame {
 		contentPane.add(btnDelete);
 		
 		JButton btnClose = new JButton("CLOSE");
+		btnClose.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Main.getUpdateDeleteTeacherForm().setVisible(false);
+				Main.getSearchTeacherForm().setVisible(true);
+			}
+		});
 		btnClose.setForeground(Color.RED);
 		btnClose.setFont(new Font("Tahoma", Font.BOLD, 14));
 		btnClose.setBounds(319, 226, 89, 24);

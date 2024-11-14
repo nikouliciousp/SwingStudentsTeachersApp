@@ -32,8 +32,26 @@ public class Main {
 										
 				} catch (Exception e) {
 					e.printStackTrace();
-				}
+				} 
 			}
 		});
 	}
+
+	public static Menu getMenu() {
+		return menu;
+	}
+
+	public static SearchTeacherForm getSearchTeacherForm() {
+		return searchTeacherForm;
+	}
+
+	public static InsertTeacherForm getInsertTeacherForm() {
+		return insertTeacherForm;
+	}
+
+	public static UpdateDeleteTeacherForm getUpdateDeleteTeacherForm() {
+		return updateDeleteTeacherForm;
+	}
+	
+	
 }

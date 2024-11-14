@@ -16,12 +16,14 @@ import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Menu extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private Connection conn;
+	private static Connection conn;
 
 	/**
 	 * Create the frame.
@@ -47,7 +49,7 @@ public class Menu extends JFrame {
 			}
 		});
 		setTitle("Menu");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(0, -39, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(210, 255, 255));
@@ -105,6 +107,12 @@ public class Menu extends JFrame {
 		panel.setLayout(null);
 		
 		JButton btnTeachers = new JButton("");
+		btnTeachers.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Main.getMenu().setVisible(false);
+				Main.getSearchTeacherForm().setVisible(true);
+			}
+		});
 		btnTeachers.setIcon(new ImageIcon(Menu.class.getResource("/resources/insertTeacher.png")));
 		btnTeachers.setBounds(10, 11, 39, 30);
 		panel.add(btnTeachers);
@@ -130,4 +138,10 @@ public class Menu extends JFrame {
 		separatorTwo.setBounds(26, 200, 382, 1);
 		contentPane.add(separatorTwo);
 	}
+
+	public static Connection getConn() {
+		return conn;
+	}
+	
+	
 }
