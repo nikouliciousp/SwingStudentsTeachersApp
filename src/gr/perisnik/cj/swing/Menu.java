@@ -1,7 +1,6 @@
 package gr.perisnik.cj.swing;
 
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.Font;
 
 import javax.swing.JButton;
@@ -9,22 +8,46 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
-import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
 import javax.swing.ImageIcon;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 public class Menu extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	private Connection conn;
 
 	/**
 	 * Create the frame.
 	 */
 	public Menu() {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowOpened(WindowEvent e) {
+				String url = "jdbc:mysql://localhost:3306/studentsdbcj?serverTimeZone=UTC";
+				String username = "sttdbcj";
+				String password = "perisnik123";
+				
+				try {
+					Class.forName("com.mysql.cj.jdbc.Driver");
+					conn = DriverManager.getConnection(url, username, password);
+					System.out.println("Connected");
+				} catch (SQLException exc) {
+					exc.printStackTrace();
+				} catch (ClassNotFoundException exc) {
+					exc.printStackTrace();
+				}
+				
+			}
+		});
 		setTitle("Menu");
-		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(0, -39, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(210, 255, 255));

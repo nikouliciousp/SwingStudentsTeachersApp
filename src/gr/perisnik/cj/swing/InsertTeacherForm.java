@@ -12,7 +12,7 @@ import javax.swing.JSeparator;
 import javax.swing.border.BevelBorder;
 import java.awt.Toolkit;
 
-public class InsertForm extends JFrame {
+public class InsertTeacherForm extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -22,8 +22,8 @@ public class InsertForm extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public InsertForm() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(InsertForm.class.getResource("/resources/insertTeacher.png")));
+	public InsertTeacherForm() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(InsertTeacherForm.class.getResource("/resources/insertTeacher.png")));
 		setTitle("Insert Teacher");
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, 450, 300);

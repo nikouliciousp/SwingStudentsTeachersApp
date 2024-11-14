@@ -15,7 +15,7 @@ import javax.swing.SwingConstants;
 import javax.swing.ImageIcon;
 import java.awt.Toolkit;
 
-public class UpdateDeleteForm extends JFrame {
+public class UpdateDeleteTeacherForm extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -26,8 +26,8 @@ public class UpdateDeleteForm extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public UpdateDeleteForm() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(UpdateDeleteForm.class.getResource("/resources/insertTeacher.png")));
+	public UpdateDeleteTeacherForm() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(UpdateDeleteTeacherForm.class.getResource("/resources/insertTeacher.png")));
 		setTitle("Update/Delete Teacher");
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -107,22 +107,22 @@ public class UpdateDeleteForm extends JFrame {
 		contentPane.add(btnUpdate);
 		
 		JButton btnEnd = new JButton("");
-		btnEnd.setIcon(new ImageIcon(UpdateDeleteForm.class.getResource("/resources/ends.png")));
+		btnEnd.setIcon(new ImageIcon(UpdateDeleteTeacherForm.class.getResource("/resources/ends.png")));
 		btnEnd.setBounds(373, 198, 35, 23);
 		contentPane.add(btnEnd);
 		
 		JButton btnNext = new JButton("");
-		btnNext.setIcon(new ImageIcon(UpdateDeleteForm.class.getResource("/resources/next.png")));
+		btnNext.setIcon(new ImageIcon(UpdateDeleteTeacherForm.class.getResource("/resources/next.png")));
 		btnNext.setBounds(338, 198, 35, 23);
 		contentPane.add(btnNext);
 		
 		JButton btnPrevious = new JButton("");
-		btnPrevious.setIcon(new ImageIcon(UpdateDeleteForm.class.getResource("/resources/previous.png")));
+		btnPrevious.setIcon(new ImageIcon(UpdateDeleteTeacherForm.class.getResource("/resources/previous.png")));
 		btnPrevious.setBounds(303, 198, 35, 23);
 		contentPane.add(btnPrevious);
 		
 		JButton btnStart = new JButton("");
-		btnStart.setIcon(new ImageIcon(UpdateDeleteForm.class.getResource("/resources/start.png")));
+		btnStart.setIcon(new ImageIcon(UpdateDeleteTeacherForm.class.getResource("/resources/start.png")));
 		btnStart.setBounds(267, 198, 35, 23);
 		contentPane.add(btnStart);
 	}
