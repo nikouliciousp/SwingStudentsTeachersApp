@@ -19,7 +19,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-public class InsertTeacherForm extends JFrame {
+public class InsertStudentForm extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -30,7 +30,7 @@ public class InsertTeacherForm extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public InsertTeacherForm() {
+	public InsertStudentForm() {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowActivated(WindowEvent e) {
@@ -38,8 +38,8 @@ public class InsertTeacherForm extends JFrame {
 				textFirstname.setText("");
 			}
 		});
-		setIconImage(Toolkit.getDefaultToolkit().getImage(InsertTeacherForm.class.getResource("/resources/insertTeacher.png")));
-		setTitle("Insert Teacher");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(InsertStudentForm.class.getResource("/resources/insertStudent.png")));
+		setTitle("Insert Student");
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -84,7 +84,7 @@ public class InsertTeacherForm extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				
 				//Prepared statement for sql injection.
-				String sql = "INSERT INTO TEACHERS (FIRSTNAME, LASTNAME) VALUES (?, ?)";
+				String sql = "INSERT INTO STUDENTS (FIRSTNAME, LASTNAME) VALUES (?, ?)";
 				String inputLastname; 
 				String inputFirstname;
 				int n = 0;
@@ -134,8 +134,8 @@ public class InsertTeacherForm extends JFrame {
 		JButton btnClose = new JButton("CLOSE");
 		btnClose.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Main.getInsertTeacherForm().setVisible(false);
-				Main.getSearchTeacherForm().setVisible(true);
+				Main.getInsertStudentForm().setVisible(false);
+				Main.getSearchStudentForm().setVisible(true);
 			}
 		});
 		btnClose.setForeground(Color.RED);

@@ -124,6 +124,12 @@ public class Menu extends JFrame {
 		panel.add(lblTeachers);
 		
 		JButton btnStudents = new JButton("");
+		btnStudents.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Main.getMenu().setVisible(false);
+				Main.getSearchStudentForm().setVisible(true);
+			}
+		});
 		btnStudents.setIcon(new ImageIcon(Menu.class.getResource("/resources/insertStudent.png")));
 		btnStudents.setBounds(10, 59, 39, 30);
 		panel.add(btnStudents);

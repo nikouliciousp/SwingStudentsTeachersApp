@@ -7,6 +7,9 @@ public class Main {
 	private static SearchTeacherForm searchTeacherForm;
 	private static InsertTeacherForm insertTeacherForm;
 	private static UpdateDeleteTeacherForm updateDeleteTeacherForm;
+	private static SearchStudentForm searchStudentForm;
+	private static InsertStudentForm insertStudentForm;
+	private static UpdateDeleteStudentForm updateDeleteStudentForm;
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -29,6 +32,18 @@ public class Main {
 					updateDeleteTeacherForm = new UpdateDeleteTeacherForm();
 					updateDeleteTeacherForm.setLocationRelativeTo(null);
 					updateDeleteTeacherForm.setVisible(false);
+					
+					searchStudentForm = new SearchStudentForm();
+					searchStudentForm.setLocationRelativeTo(null);
+					searchStudentForm.setVisible(false);
+								
+					insertStudentForm = new InsertStudentForm();
+					insertStudentForm.setLocationRelativeTo(null);
+					insertStudentForm.setVisible(false);
+					
+					updateDeleteStudentForm = new UpdateDeleteStudentForm();
+					updateDeleteStudentForm.setLocationRelativeTo(null);
+					updateDeleteStudentForm.setVisible(false);
 										
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -52,6 +67,16 @@ public class Main {
 	public static UpdateDeleteTeacherForm getUpdateDeleteTeacherForm() {
 		return updateDeleteTeacherForm;
 	}
-	
-	
+
+	public static SearchStudentForm getSearchStudentForm() {
+		return searchStudentForm;
+	}
+
+	public static InsertStudentForm getInsertStudentForm() {
+		return insertStudentForm;
+	}
+
+	public static UpdateDeleteStudentForm getUpdateDeleteStudentForm() {
+		return updateDeleteStudentForm;
+	}
 }
