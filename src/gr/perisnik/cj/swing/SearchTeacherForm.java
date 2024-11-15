@@ -14,6 +14,8 @@ import javax.swing.SwingConstants;
 import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class SearchTeacherForm extends JFrame {
 
@@ -27,6 +29,12 @@ public class SearchTeacherForm extends JFrame {
 	 * Create the frame.
 	 */
 	public SearchTeacherForm() {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowActivated(WindowEvent e) {
+				textLastname.setText("");
+			}
+		});
 		setIconImage(Toolkit.getDefaultToolkit().getImage(SearchTeacherForm.class.getResource("/resources/insertTeacher.png")));
 		setTitle("Search/Insert Teacher");
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -49,7 +57,7 @@ public class SearchTeacherForm extends JFrame {
 		textLastname = new JTextField();
 		textLastname.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				inputLastname = textLastname.getText();
+				inputLastname = textLastname.getText().trim();
 				Main.getSearchTeacherForm().setVisible(false);
 				Main.getUpdateDeleteTeacherForm().setVisible(true);
 			}
@@ -79,6 +87,7 @@ public class SearchTeacherForm extends JFrame {
 		JButton btnSearch = new JButton("SEARCH");
 		btnSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				inputLastname = textLastname.getText().trim();
 				Main.getSearchTeacherForm().setVisible(false);
 				Main.getUpdateDeleteTeacherForm().setVisible(true);
 			}
@@ -113,9 +122,8 @@ public class SearchTeacherForm extends JFrame {
 		panelInsert.setLayout(null);
 	}
 
-	public JTextField getTextLastname() {
-		return textLastname;
+	public String getInputLastname() {
+		return inputLastname;
 	}
-	
 	
 }
