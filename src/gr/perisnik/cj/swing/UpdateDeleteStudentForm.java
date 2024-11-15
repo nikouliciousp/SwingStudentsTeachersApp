@@ -30,11 +30,8 @@ public class UpdateDeleteStudentForm extends JFrame {
 	private JTextField textLastname;
 	private JTextField textFirstname;
 	private JTextField textId;
-	private Connection conn;
-	private PreparedStatement pr;
 	private ResultSet rs;
 	
-
 	/**
 	 * Create the frame.
 	 */
@@ -44,10 +41,8 @@ public class UpdateDeleteStudentForm extends JFrame {
 			public void windowActivated(WindowEvent e) {
 				String sql = "SELECT ID, FIRSTNAME, LASTNAME FROM STUDENTS WHERE LASTNAME LIKE ?";
 				
-				try {
-					conn = Menu.getConn();
-					pr = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-					
+				try (Connection conn = Menu.getConn();
+						PreparedStatement pr = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);) {				
 					pr.setString(1, Main.getSearchStudentForm().getInputLastname() + '%');
 					rs = pr.executeQuery();
 					
@@ -68,18 +63,6 @@ public class UpdateDeleteStudentForm extends JFrame {
 				textId.setText("");
 				textLastname.setText("");
 				textFirstname.setText("");
-				
-				try {
-					if (rs != null) {
-						rs.close();
-					}
-					
-					if (pr != null) {
-						pr.close();
-					}
-				} catch (SQLException exc) {
-					exc.printStackTrace();
-				}
 			}
 		});
 		setIconImage(Toolkit.getDefaultToolkit().getImage(UpdateDeleteStudentForm.class.getResource("/resources/insertStudent.png")));
@@ -125,9 +108,8 @@ public class UpdateDeleteStudentForm extends JFrame {
 				int response;
 				int n;
 				
-				try {
-					conn = Menu.getConn();
-					pr = conn.prepareStatement(sql);
+				try (Connection conn = Menu.getConn();
+						PreparedStatement pr = conn.prepareStatement(sql);) {
 					pr.setInt(1, Integer.parseInt(textId.getText().trim()));
 					
 					response = JOptionPane.showConfirmDialog(null, "Are you sure to delete this Student?", "DELETE", JOptionPane.YES_NO_OPTION);
@@ -196,10 +178,8 @@ public class UpdateDeleteStudentForm extends JFrame {
 				String inputId;
 				int n = 0;
 				
-				try {
-					Connection conn = Menu.getConn();
-					pr = conn.prepareStatement(sql);
-					
+				try (Connection conn = Menu.getConn();
+						PreparedStatement pr = conn.prepareStatement(sql);) {					
 					inputLastname = textLastname.getText().trim();
 					inputFirstname = textFirstname.getText().trim();
 					inputId = textId.getText();

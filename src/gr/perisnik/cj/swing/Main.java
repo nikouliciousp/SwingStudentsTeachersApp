@@ -4,6 +4,12 @@ import java.awt.EventQueue;
 
 public class Main {
 	private static WelcomeWindow welcomeWindow;
+	private static LoginForm loginForm;
+	
+	private static SearchUserForm searchUserForm;
+	private static InsertUserForm insertUserForm;
+	private static UpdateDeleteUserForm updateDeleteUserForm;
+	
 	private static Menu menu;
 	private static SearchTeacherForm searchTeacherForm;
 	private static InsertTeacherForm insertTeacherForm;
@@ -21,6 +27,22 @@ public class Main {
 					welcomeWindow = new WelcomeWindow();
 					welcomeWindow.setLocationRelativeTo(null);
 					welcomeWindow.setVisible(true);
+					
+					loginForm = new LoginForm();
+					loginForm.setLocationRelativeTo(null);
+					loginForm.setVisible(false);
+					
+					searchUserForm = new SearchUserForm();
+					searchUserForm.setLocationRelativeTo(null);
+					searchUserForm.setVisible(false);
+					
+					insertUserForm = new InsertUserForm();
+					insertUserForm.setLocationRelativeTo(null);
+					insertUserForm.setVisible(false);
+					
+					updateDeleteUserForm = new UpdateDeleteUserForm();
+					updateDeleteUserForm.setLocationRelativeTo(null);
+					updateDeleteUserForm.setVisible(false);
 					
 					menu = new Menu();
 					menu.setLocationRelativeTo(null);
@@ -59,6 +81,22 @@ public class Main {
 	
 	public static WelcomeWindow getWelcomeWindow() {
 		return welcomeWindow;
+	}
+	
+	public static LoginForm getLoginForm() {
+		return loginForm;
+	}
+	
+	public static SearchUserForm getSearchUserForm() {
+		return searchUserForm;
+	}
+
+	public static InsertUserForm getInsertUserForm() {
+		return insertUserForm;
+	}
+
+	public static UpdateDeleteUserForm getUpdateDeleteUserForm() {
+		return updateDeleteUserForm;
 	}
 
 	public static Menu getMenu() {

@@ -11,6 +11,9 @@ import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.border.BevelBorder;
+
+import org.mindrot.jbcrypt.BCrypt;
+
 import javax.swing.SwingConstants;
 import javax.swing.ImageIcon;
 import java.awt.Toolkit;
@@ -22,35 +25,36 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.JPasswordField;
 
-public class UpdateDeleteTeacherForm extends JFrame {
+public class UpdateDeleteUserForm extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField textLastname;
-	private JTextField textFirstname;
+	private JTextField textUsername;
 	private JTextField textId;
 	private ResultSet rs;
+	private JPasswordField textPassword;
 	
 
 	/**
 	 * Create the frame.
 	 */
-	public UpdateDeleteTeacherForm() {
+	public UpdateDeleteUserForm() {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowActivated(WindowEvent e) {
-				String sql = "SELECT ID, FIRSTNAME, LASTNAME FROM TEACHERS WHERE LASTNAME LIKE ?";
+				String sql = "SELECT ID, USERNAME, PASSWORD FROM USERS WHERE USERNAME LIKE ?";
 				
 				try (Connection conn = Menu.getConn();
-						PreparedStatement pr = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);) {				
-					pr.setString(1, Main.getSearchTeacherForm().getInputLastname() + '%');
+						PreparedStatement pr = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);) {					
+					pr.setString(1, Main.getSearchUserForm().getInputUsername() + '%');
 					rs = pr.executeQuery();
 					
 					if (rs.next()) {					
 						textId.setText(Integer.toString(rs.getInt("ID")));
-						textLastname.setText(rs.getString("LASTNAME"));
-						textFirstname.setText(rs.getString("FIRSTNAME"));
+						textUsername.setText(rs.getString("USERNAME"));
+						textPassword.setText("*********");
 					} else {
 						return;
 					}
@@ -62,12 +66,11 @@ public class UpdateDeleteTeacherForm extends JFrame {
 			@Override
 			public void windowClosed(WindowEvent e) {
 				textId.setText("");
-				textLastname.setText("");
-				textFirstname.setText("");
+				textUsername.setText("");
+				textPassword.setText("");
 			}
 		});
-		setIconImage(Toolkit.getDefaultToolkit().getImage(UpdateDeleteTeacherForm.class.getResource("/resources/insertTeacher.png")));
-		setTitle("Update/Delete Teacher");
+		setTitle("Update/Delete User");
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -77,35 +80,29 @@ public class UpdateDeleteTeacherForm extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblLastname = new JLabel("Lastname");
-		lblLastname.setForeground(Color.BLUE);
-		lblLastname.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblLastname.setToolTipText("");
-		lblLastname.setBounds(66, 82, 90, 33);
-		contentPane.add(lblLastname);
+		JLabel lblUsername = new JLabel("Username");
+		lblUsername.setForeground(Color.BLUE);
+		lblUsername.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblUsername.setToolTipText("");
+		lblUsername.setBounds(66, 82, 90, 33);
+		contentPane.add(lblUsername);
 		
-		JLabel lblFirstname = new JLabel("Firstname");
-		lblFirstname.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblFirstname.setForeground(Color.BLUE);
-		lblFirstname.setBounds(66, 126, 86, 33);
-		contentPane.add(lblFirstname);
+		JLabel lblPassword = new JLabel("Password");
+		lblPassword.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblPassword.setForeground(Color.BLUE);
+		lblPassword.setBounds(66, 126, 86, 33);
+		contentPane.add(lblPassword);
 		
-		textLastname = new JTextField();
-		textLastname.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		textLastname.setBounds(151, 86, 210, 25);
-		contentPane.add(textLastname);
-		textLastname.setColumns(50);
-		
-		textFirstname = new JTextField();
-		textFirstname.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		textFirstname.setBounds(151, 130, 210, 25);
-		contentPane.add(textFirstname);
-		textFirstname.setColumns(50);
+		textUsername = new JTextField();
+		textUsername.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		textUsername.setBounds(151, 86, 210, 25);
+		contentPane.add(textUsername);
+		textUsername.setColumns(50);
 		
 		JButton btnDelete = new JButton("DELETE");
 		btnDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String sql = "DELETE FROM TEACHERS WHERE ID = ?";
+				String sql = "DELETE FROM USERS WHERE ID = ?";
 				int response;
 				int n;
 				
@@ -113,13 +110,13 @@ public class UpdateDeleteTeacherForm extends JFrame {
 						PreparedStatement pr = conn.prepareStatement(sql);) {
 					pr.setInt(1, Integer.parseInt(textId.getText().trim()));
 					
-					response = JOptionPane.showConfirmDialog(null, "Are you sure to delete this Teacher?", "DELETE", JOptionPane.YES_NO_OPTION);
+					response = JOptionPane.showConfirmDialog(null, "Are you sure to delete this User?", "DELETE", JOptionPane.YES_NO_OPTION);
 					
 					if (response == JOptionPane.YES_OPTION) {
 						n = pr.executeUpdate();
 						JOptionPane.showMessageDialog(null, n + " rows deleted", "DELETE", JOptionPane.INFORMATION_MESSAGE);
-//						Main.getUpdateDeleteTeacherForm().setVisible(false);
-//						Main.getSearchTeacherForm().setVisible(true);
+//						Main.getUpdateDeleteUserForm().setVisible(false);
+//						Main.getSearchUserForm().setVisible(true);
 					}
 					
 				} catch (SQLException exc) {
@@ -135,8 +132,8 @@ public class UpdateDeleteTeacherForm extends JFrame {
 		JButton btnClose = new JButton("CLOSE");
 		btnClose.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Main.getUpdateDeleteTeacherForm().setVisible(false);
-				Main.getSearchTeacherForm().setVisible(true);
+				Main.getUpdateDeleteUserForm().setVisible(false);
+				Main.getSearchUserForm().setVisible(true);
 			}
 		});
 		btnClose.setForeground(Color.RED);
@@ -169,29 +166,37 @@ public class UpdateDeleteTeacherForm extends JFrame {
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
+		textPassword = new JPasswordField();
+		textPassword.setBounds(125, 107, 210, 25);
+		panel.add(textPassword);
+		
 		JButton btnUpdate = new JButton("UPDATE");
 		btnUpdate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//Prepared statement for sql injection.
-				String sql = "UPDATE TEACHERS SET FIRSTNAME = ?, LASTNAME = ? WHERE ID = ?";
-				String inputLastname; 
-				String inputFirstname;
+				String sql = "UPDATE USERS SET USERNAME = ?, PASSWORD = ? WHERE ID = ?";
+				String inputUsername; 
+				String inputPassword;
 				String inputId;
 				int n = 0;
 				
 				try (Connection conn = Menu.getConn();
-						PreparedStatement pr = conn.prepareStatement(sql);) {					
-					inputLastname = textLastname.getText().trim();
-					inputFirstname = textFirstname.getText().trim();
+						PreparedStatement pr = conn.prepareStatement(sql);) {				
+					inputUsername = textUsername.getText().trim();
+					inputPassword = String.valueOf(textPassword.getPassword()).trim();
 					inputId = textId.getText();
 					
-					if (inputLastname.equals("") || inputFirstname.equals("")) {
+					if (inputUsername.equals("") || inputPassword.equals("") || inputPassword.equals("*********")) {
 						JOptionPane.showMessageDialog(null, n + " records updated", "UPDATE", JOptionPane.PLAIN_MESSAGE);
 						return;
 					}
 					
-					pr.setString(1, inputFirstname);
-					pr.setString(2, inputLastname);
+					int workload = 12;
+					String salt = BCrypt.gensalt(workload);
+					String hashedPassword = BCrypt.hashpw(inputPassword, salt);
+					
+					pr.setString(1, inputUsername);
+					pr.setString(2, hashedPassword);
 					pr.setInt(3, Integer.parseInt(inputId));
 					
 					n = pr.executeUpdate();
@@ -219,15 +224,15 @@ public class UpdateDeleteTeacherForm extends JFrame {
 				try {
 					if (rs.last()) {
 						textId.setText(rs.getString("ID"));
-						textLastname.setText(rs.getString("LASTNAME"));
-						textFirstname.setText(rs.getString("FIRSTNAME"));
+						textUsername.setText(rs.getString("USERNAME"));
+						textPassword.setText("*********");
 					}
 				} catch (SQLException exc) {
 					exc.printStackTrace();
 				}
 			}
 		});
-		btnEnd.setIcon(new ImageIcon(UpdateDeleteTeacherForm.class.getResource("/resources/ends.png")));
+		btnEnd.setIcon(new ImageIcon(UpdateDeleteUserForm.class.getResource("/resources/ends.png")));
 		btnEnd.setBounds(373, 198, 35, 23);
 		contentPane.add(btnEnd);
 		
@@ -237,8 +242,8 @@ public class UpdateDeleteTeacherForm extends JFrame {
 				try {
 					if (rs.next()) {
 						textId.setText(rs.getString("ID"));
-						textLastname.setText(rs.getString("LASTNAME"));
-						textFirstname.setText(rs.getString("FIRSTNAME"));
+						textUsername.setText(rs.getString("USERNAME"));
+						textPassword.setText("*********");
 					} else {
 						rs.last();
 					}
@@ -247,7 +252,7 @@ public class UpdateDeleteTeacherForm extends JFrame {
 				}
 			}
 		});
-		btnNext.setIcon(new ImageIcon(UpdateDeleteTeacherForm.class.getResource("/resources/next.png")));
+		btnNext.setIcon(new ImageIcon(UpdateDeleteUserForm.class.getResource("/resources/next.png")));
 		btnNext.setBounds(338, 198, 35, 23);
 		contentPane.add(btnNext);
 		
@@ -257,8 +262,8 @@ public class UpdateDeleteTeacherForm extends JFrame {
 				try {
 					if (rs.previous()) {
 						textId.setText(rs.getString("ID"));
-						textLastname.setText(rs.getString("LASTNAME"));
-						textFirstname.setText(rs.getString("FIRSTNAME"));
+						textUsername.setText(rs.getString("USERNAME"));
+						textPassword.setText("*********");
 					} else {
 						rs.first();
 					}
@@ -267,7 +272,7 @@ public class UpdateDeleteTeacherForm extends JFrame {
 				}
 			}
 		});
-		btnPrevious.setIcon(new ImageIcon(UpdateDeleteTeacherForm.class.getResource("/resources/previous.png")));
+		btnPrevious.setIcon(new ImageIcon(UpdateDeleteUserForm.class.getResource("/resources/previous.png")));
 		btnPrevious.setBounds(303, 198, 35, 23);
 		contentPane.add(btnPrevious);
 		
@@ -277,17 +282,16 @@ public class UpdateDeleteTeacherForm extends JFrame {
 				try {
 					if (rs.first()) {
 						textId.setText(rs.getString("ID"));
-						textLastname.setText(rs.getString("LASTNAME"));
-						textFirstname.setText(rs.getString("FIRSTNAME"));
+						textUsername.setText(rs.getString("USERNAME"));
+						textPassword.setText("*********");
 					}
 				} catch (SQLException exc) {
 					exc.printStackTrace();
 				}
 			}
 		});
-		btnStart.setIcon(new ImageIcon(UpdateDeleteTeacherForm.class.getResource("/resources/start.png")));
+		btnStart.setIcon(new ImageIcon(UpdateDeleteUserForm.class.getResource("/resources/start.png")));
 		btnStart.setBounds(267, 198, 35, 23);
 		contentPane.add(btnStart);
 	}
-
 }

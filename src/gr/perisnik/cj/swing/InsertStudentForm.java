@@ -25,7 +25,6 @@ public class InsertStudentForm extends JFrame {
 	private JPanel contentPane;
 	private JTextField textLastname;
 	private JTextField textFirstname;
-	private PreparedStatement pr;
 
 	/**
 	 * Create the frame.
@@ -89,10 +88,8 @@ public class InsertStudentForm extends JFrame {
 				String inputFirstname;
 				int n = 0;
 				
-				try {
-					Connection conn = Menu.getConn();
-					pr = conn.prepareStatement(sql);
-					
+				try (Connection conn = Menu.getConn();
+						PreparedStatement pr = conn.prepareStatement(sql);) {
 					inputLastname = textLastname.getText().trim();
 					inputFirstname = textFirstname.getText().trim();
 					
@@ -115,14 +112,6 @@ public class InsertStudentForm extends JFrame {
 					
 				} catch (SQLException exc) {
 					exc.printStackTrace();
-				} finally {
-					try {
-						if (pr != null) {
-							pr.close();
-						}
-					} catch (SQLException exc) {
-						exc.printStackTrace();
-					}
 				}
 			}
 		});

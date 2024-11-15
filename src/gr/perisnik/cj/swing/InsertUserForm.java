@@ -10,6 +10,9 @@ import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.JSeparator;
 import javax.swing.border.BevelBorder;
+
+import org.mindrot.jbcrypt.BCrypt;
+
 import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -18,27 +21,27 @@ import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import javax.swing.JPasswordField;
 
-public class InsertTeacherForm extends JFrame {
+public class InsertUserForm extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField textLastname;
-	private JTextField textFirstname;
+	private JTextField textUsername;
+	private JPasswordField textPassword;
 
 	/**
 	 * Create the frame.
 	 */
-	public InsertTeacherForm() {
+	public InsertUserForm() {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowActivated(WindowEvent e) {
-				textLastname.setText("");
-				textFirstname.setText("");
+				textUsername.setText("");
+				textPassword.setText("");
 			}
 		});
-		setIconImage(Toolkit.getDefaultToolkit().getImage(InsertTeacherForm.class.getResource("/resources/insertTeacher.png")));
-		setTitle("Insert Teacher");
+		setTitle("Insert User");
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -48,58 +51,62 @@ public class InsertTeacherForm extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblLastname = new JLabel("Lastname");
-		lblLastname.setForeground(Color.BLUE);
-		lblLastname.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblLastname.setToolTipText("");
-		lblLastname.setBounds(66, 62, 86, 33);
-		contentPane.add(lblLastname);
+		JLabel lblUsername = new JLabel("Username");
+		lblUsername.setForeground(Color.BLUE);
+		lblUsername.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblUsername.setToolTipText("");
+		lblUsername.setBounds(63, 62, 89, 33);
+		contentPane.add(lblUsername);
 		
-		JLabel lblFirstname = new JLabel("Firstname");
-		lblFirstname.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblFirstname.setForeground(Color.BLUE);
-		lblFirstname.setBounds(66, 106, 86, 33);
-		contentPane.add(lblFirstname);
+		JLabel lblPassword = new JLabel("Password");
+		lblPassword.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblPassword.setForeground(Color.BLUE);
+		lblPassword.setBounds(66, 106, 86, 33);
+		contentPane.add(lblPassword);
 		
-		textLastname = new JTextField();
-		textLastname.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		textLastname.setBounds(150, 66, 210, 25);
-		contentPane.add(textLastname);
-		textLastname.setColumns(50);
-		
-		textFirstname = new JTextField();
-		textFirstname.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		textFirstname.setBounds(151, 110, 210, 25);
-		contentPane.add(textFirstname);
-		textFirstname.setColumns(50);
+		textUsername = new JTextField();
+		textUsername.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		textUsername.setBounds(150, 66, 210, 25);
+		contentPane.add(textUsername);
+		textUsername.setColumns(50);
 		
 		JPanel panel = new JPanel();
 		panel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		panel.setBounds(26, 30, 382, 145);
 		contentPane.add(panel);
+		panel.setLayout(null);
+		
+		textPassword = new JPasswordField();
+		textPassword.setBounds(124, 80, 210, 25);
+		panel.add(textPassword);
 		
 		JButton btnInsert = new JButton("INSERT");
 		btnInsert.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
 				//Prepared statement for sql injection.
-				String sql = "INSERT INTO TEACHERS (FIRSTNAME, LASTNAME) VALUES (?, ?)";
-				String inputLastname; 
-				String inputFirstname;
+				String sql = "INSERT INTO USERS (USERNAME, PASSWORD) VALUES (?, ?)";
+				String inputUsername; 
+				String inputPassword;
 				int n = 0;
 				
 				try (Connection conn = Menu.getConn();
-						PreparedStatement pr = conn.prepareStatement(sql);) {				
-					inputLastname = textLastname.getText().trim();
-					inputFirstname = textFirstname.getText().trim();
+						PreparedStatement pr = conn.prepareStatement(sql);) {
+					inputUsername = textUsername.getText().trim();
+					inputPassword = String.valueOf(textPassword.getPassword()).trim();
 					
-					if (inputLastname.equals("") || inputFirstname.equals("")) {
+					if (inputUsername.equals("") || inputPassword.equals("")) {
 						JOptionPane.showMessageDialog(null, n + " records inserted", "INSERT", JOptionPane.PLAIN_MESSAGE);
 						return;
 					}
 					
-					pr.setString(1, inputFirstname);
-					pr.setString(2, inputLastname);
+					//Max = 32
+					int workload = 12;
+					String salt = BCrypt.gensalt(workload);
+					String hashedPassword = BCrypt.hashpw(inputPassword, salt);
+					
+					pr.setString(1, inputUsername);
+					pr.setString(2, hashedPassword);
 					
 					n = pr.executeUpdate();
 					
@@ -123,8 +130,8 @@ public class InsertTeacherForm extends JFrame {
 		JButton btnClose = new JButton("CLOSE");
 		btnClose.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Main.getInsertTeacherForm().setVisible(false);
-				Main.getSearchTeacherForm().setVisible(true);
+				Main.getInsertUserForm().setVisible(false);
+				Main.getSearchUserForm().setVisible(true);
 			}
 		});
 		btnClose.setForeground(Color.RED);

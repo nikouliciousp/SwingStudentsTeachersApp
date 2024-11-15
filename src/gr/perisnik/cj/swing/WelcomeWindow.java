@@ -64,21 +64,21 @@ public class WelcomeWindow extends JFrame {
                 
                 JLabel lblManagment_1 = new JLabel("Managment System");
                 lblManagment_1.setHorizontalAlignment(SwingConstants.CENTER);
-                lblManagment_1.setForeground(Color.ORANGE);
+                lblManagment_1.setForeground(Color.WHITE);
                 lblManagment_1.setFont(new Font("Tahoma", Font.BOLD, 28));
                 lblManagment_1.setBounds(60, 70, 315, 30);
                 panel.add(lblManagment_1);
                 
                 JLabel lblSchool_1 = new JLabel("to the School");
                 lblSchool_1.setHorizontalAlignment(SwingConstants.CENTER);
-                lblSchool_1.setForeground(Color.ORANGE);
+                lblSchool_1.setForeground(Color.WHITE);
                 lblSchool_1.setFont(new Font("Tahoma", Font.BOLD, 20));
                 lblSchool_1.setBounds(136, 40, 163, 30);
                 panel.add(lblSchool_1);
                 
                 JLabel lblWelcome_1 = new JLabel("Welcome");
                 lblWelcome_1.setHorizontalAlignment(SwingConstants.CENTER);
-                lblWelcome_1.setForeground(Color.ORANGE);
+                lblWelcome_1.setForeground(Color.WHITE);
                 lblWelcome_1.setFont(new Font("Tahoma", Font.BOLD, 20));
                 lblWelcome_1.setBounds(135, 12, 163, 30);
                 panel.add(lblWelcome_1);
