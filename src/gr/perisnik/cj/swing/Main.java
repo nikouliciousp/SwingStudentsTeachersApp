@@ -3,6 +3,7 @@ package gr.perisnik.cj.swing;
 import java.awt.EventQueue;
 
 public class Main {
+	private static WelcomeWindow welcomeWindow;
 	private static Menu menu;
 	private static SearchTeacherForm searchTeacherForm;
 	private static InsertTeacherForm insertTeacherForm;
@@ -17,9 +18,13 @@ public class Main {
 			@Override
 			public void run() {
 				try {
+					welcomeWindow = new WelcomeWindow();
+					welcomeWindow.setLocationRelativeTo(null);
+					welcomeWindow.setVisible(true);
+					
 					menu = new Menu();
 					menu.setLocationRelativeTo(null);
-					menu.setVisible(true);
+					menu.setVisible(false);
 					
 					searchTeacherForm = new SearchTeacherForm();
 					searchTeacherForm.setLocationRelativeTo(null);
@@ -50,6 +55,10 @@ public class Main {
 				}
 			}
 		});
+	}
+	
+	public static WelcomeWindow getWelcomeWindow() {
+		return welcomeWindow;
 	}
 
 	public static Menu getMenu() {

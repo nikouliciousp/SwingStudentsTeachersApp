@@ -68,6 +68,12 @@ public class Menu extends JFrame {
 		contentPane.add(lblTitleOne);
 		
 		JButton btnClose = new JButton("CLOSE");
+		btnClose.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Main.getMenu().setVisible(false);
+            	Main.getWelcomeWindow().setVisible(true);	
+			}
+		});
 		btnClose.setForeground(Color.RED);
 		btnClose.setFont(new Font("Tahoma", Font.BOLD, 14));
 		btnClose.setBounds(319, 218, 89, 32);
