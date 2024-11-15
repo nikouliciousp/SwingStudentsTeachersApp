@@ -7,5 +7,8 @@
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="lib" path="C:/Program Files (x86)/MySQL/Connector J 8.0/mysql-connector-j-8.0.32.jar"/>
+	<classpathentry kind="lib" path="C:/Users/pirat/Downloads/jdbc_archives/commons-dbcp2-2.12.0-bin.tar/commons-dbcp2-2.12.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/pirat/Downloads/jdbc_archives/commons-pool2-2.12.0-bin.tar/commons-pool2-2.12.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/pirat/Downloads/jdbc_archives/commons-logging-1.3.4-bin.tar/commons-logging-1.3.4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

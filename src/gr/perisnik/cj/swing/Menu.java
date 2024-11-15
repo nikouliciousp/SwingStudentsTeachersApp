@@ -10,6 +10,9 @@ import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
+
+import gr.perisnik.cj.swing.util.DBUtil;
+
 import javax.swing.ImageIcon;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -32,20 +35,18 @@ public class Menu extends JFrame {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowOpened(WindowEvent e) {
-				String url = "jdbc:mysql://localhost:3306/studentsdbcj?serverTimeZone=UTC";
-				String username = "sttdbcj";
-				String password = "perisnik123";
+//				String url = "jdbc:mysql://localhost:3306/studentsdbcj?serverTimeZone=UTC";
+//				String username = "sttdbcj";
+//				String password = "perisnik123";
 				
 				try {
-					Class.forName("com.mysql.cj.jdbc.Driver");
-					conn = DriverManager.getConnection(url, username, password);
+//					Class.forName("com.mysql.cj.jdbc.Driver");
+//					conn = DriverManager.getConnection(url, username, password);
+					conn = DBUtil.getConnection();
 					System.out.println("Connected");
 				} catch (SQLException exc) {
 					exc.printStackTrace();
-				} catch (ClassNotFoundException exc) {
-					exc.printStackTrace();
 				}
-				
 			}
 		});
 		setTitle("Menu");
@@ -148,6 +149,4 @@ public class Menu extends JFrame {
 	public static Connection getConn() {
 		return conn;
 	}
-	
-	
 }
