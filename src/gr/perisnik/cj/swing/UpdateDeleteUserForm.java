@@ -14,6 +14,8 @@ import javax.swing.border.BevelBorder;
 
 import org.mindrot.jbcrypt.BCrypt;
 
+import gr.perisnik.cj.swing.util.DBUtil;
+
 import javax.swing.SwingConstants;
 import javax.swing.ImageIcon;
 import java.awt.Toolkit;
@@ -33,8 +35,10 @@ public class UpdateDeleteUserForm extends JFrame {
 	private JPanel contentPane;
 	private JTextField textUsername;
 	private JTextField textId;
-	private ResultSet rs;
 	private JPasswordField textPassword;
+	private Connection conn;
+	private PreparedStatement pr;
+	private ResultSet rs;
 	
 
 	/**
@@ -46,8 +50,9 @@ public class UpdateDeleteUserForm extends JFrame {
 			public void windowActivated(WindowEvent e) {
 				String sql = "SELECT ID, USERNAME, PASSWORD FROM USERS WHERE USERNAME LIKE ?";
 				
-				try (Connection conn = Menu.getConn();
-						PreparedStatement pr = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);) {					
+				try {
+					conn = DBUtil.getConnection();
+					pr = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
 					pr.setString(1, Main.getSearchUserForm().getInputUsername() + '%');
 					rs = pr.executeQuery();
 					
@@ -106,8 +111,9 @@ public class UpdateDeleteUserForm extends JFrame {
 				int response;
 				int n;
 				
-				try (Connection conn = Menu.getConn();
-						PreparedStatement pr = conn.prepareStatement(sql);) {
+				try {
+					conn = DBUtil.getConnection();
+					pr = conn.prepareStatement(sql);
 					pr.setInt(1, Integer.parseInt(textId.getText().trim()));
 					
 					response = JOptionPane.showConfirmDialog(null, "Are you sure to delete this User?", "DELETE", JOptionPane.YES_NO_OPTION);
@@ -132,6 +138,12 @@ public class UpdateDeleteUserForm extends JFrame {
 		JButton btnClose = new JButton("CLOSE");
 		btnClose.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				try {
+					conn.close();
+					pr.close();
+				} catch (SQLException exc) {
+					exc.printStackTrace();
+				}
 				Main.getUpdateDeleteUserForm().setVisible(false);
 				Main.getSearchUserForm().setVisible(true);
 			}
@@ -180,8 +192,9 @@ public class UpdateDeleteUserForm extends JFrame {
 				String inputId;
 				int n = 0;
 				
-				try (Connection conn = Menu.getConn();
-						PreparedStatement pr = conn.prepareStatement(sql);) {				
+				try {	
+					conn = DBUtil.getConnection();
+					pr = conn.prepareStatement(sql);
 					inputUsername = textUsername.getText().trim();
 					inputPassword = String.valueOf(textPassword.getPassword()).trim();
 					inputId = textId.getText();

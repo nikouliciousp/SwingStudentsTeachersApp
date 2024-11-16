@@ -13,6 +13,8 @@ import javax.swing.border.BevelBorder;
 
 import org.mindrot.jbcrypt.BCrypt;
 
+import gr.perisnik.cj.swing.util.DBUtil;
+
 import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -90,7 +92,7 @@ public class InsertUserForm extends JFrame {
 				String inputPassword;
 				int n = 0;
 				
-				try (Connection conn = Menu.getConn();
+				try (Connection conn = DBUtil.getConnection();
 						PreparedStatement pr = conn.prepareStatement(sql);) {
 					inputUsername = textUsername.getText().trim();
 					inputPassword = String.valueOf(textPassword.getPassword()).trim();

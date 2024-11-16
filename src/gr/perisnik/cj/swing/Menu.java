@@ -32,23 +32,23 @@ public class Menu extends JFrame {
 	 * Create the frame.
 	 */
 	public Menu() {
-		addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowOpened(WindowEvent e) {
+//		addWindowListener(new WindowAdapter() {
+//			@Override
+//			public void windowOpened(WindowEvent e) {
 //				String url = "jdbc:mysql://localhost:3306/studentsdbcj?serverTimeZone=UTC";
 //				String username = "sttdbcj";
 //				String password = "perisnik123";
-				
-				try {
+//				
+//				try {
 //					Class.forName("com.mysql.cj.jdbc.Driver");
 //					conn = DriverManager.getConnection(url, username, password);
-					conn = DBUtil.getConnection();
-					System.out.println("Connected");
-				} catch (SQLException exc) {
-					exc.printStackTrace();
-				}
-			}
-		});
+//					conn = DBUtil.getConnection();
+//					System.out.println("Connected");
+//				} catch (SQLException exc) {
+//					exc.printStackTrace();
+//				}
+//			}
+//		});
 		setTitle("Menu");
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(0, -39, 450, 300);
@@ -152,7 +152,7 @@ public class Menu extends JFrame {
 		contentPane.add(separatorTwo);
 	}
 
-	public static Connection getConn() {
-		return conn;
-	}
+//	public static Connection getConn() {
+//		return conn;
+//	}
 }

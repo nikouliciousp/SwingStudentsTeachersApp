@@ -91,7 +91,7 @@ public class WelcomeWindow extends JFrame {
         btnEnter.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
             	Main.getWelcomeWindow().setVisible(false);
-				Main.getMenu().setVisible(true);
+				Main.getLoginForm().setVisible(true);
             }
         });
     }

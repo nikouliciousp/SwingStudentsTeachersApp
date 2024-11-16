@@ -11,6 +11,9 @@ import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.border.BevelBorder;
+
+import gr.perisnik.cj.swing.util.DBUtil;
+
 import javax.swing.SwingConstants;
 import javax.swing.ImageIcon;
 import java.awt.Toolkit;
@@ -30,6 +33,8 @@ public class UpdateDeleteTeacherForm extends JFrame {
 	private JTextField textLastname;
 	private JTextField textFirstname;
 	private JTextField textId;
+	private Connection conn;
+	private PreparedStatement pr;
 	private ResultSet rs;
 	
 
@@ -42,8 +47,9 @@ public class UpdateDeleteTeacherForm extends JFrame {
 			public void windowActivated(WindowEvent e) {
 				String sql = "SELECT ID, FIRSTNAME, LASTNAME FROM TEACHERS WHERE LASTNAME LIKE ?";
 				
-				try (Connection conn = Menu.getConn();
-						PreparedStatement pr = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);) {				
+				try {
+					conn = DBUtil.getConnection();
+					pr = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
 					pr.setString(1, Main.getSearchTeacherForm().getInputLastname() + '%');
 					rs = pr.executeQuery();
 					
@@ -109,8 +115,9 @@ public class UpdateDeleteTeacherForm extends JFrame {
 				int response;
 				int n;
 				
-				try (Connection conn = Menu.getConn();
-						PreparedStatement pr = conn.prepareStatement(sql);) {
+				try {
+					conn = DBUtil.getConnection();
+					pr = conn.prepareStatement(sql);
 					pr.setInt(1, Integer.parseInt(textId.getText().trim()));
 					
 					response = JOptionPane.showConfirmDialog(null, "Are you sure to delete this Teacher?", "DELETE", JOptionPane.YES_NO_OPTION);
@@ -135,6 +142,12 @@ public class UpdateDeleteTeacherForm extends JFrame {
 		JButton btnClose = new JButton("CLOSE");
 		btnClose.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				try {
+					conn.close();
+					pr.close();
+				} catch (SQLException exc) {
+					exc.printStackTrace();
+				}
 				Main.getUpdateDeleteTeacherForm().setVisible(false);
 				Main.getSearchTeacherForm().setVisible(true);
 			}
@@ -179,8 +192,9 @@ public class UpdateDeleteTeacherForm extends JFrame {
 				String inputId;
 				int n = 0;
 				
-				try (Connection conn = Menu.getConn();
-						PreparedStatement pr = conn.prepareStatement(sql);) {					
+				try {
+					conn = DBUtil.getConnection();
+					pr = conn.prepareStatement(sql);
 					inputLastname = textLastname.getText().trim();
 					inputFirstname = textFirstname.getText().trim();
 					inputId = textId.getText();

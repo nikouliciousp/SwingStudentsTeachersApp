@@ -10,6 +10,9 @@ import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.JSeparator;
 import javax.swing.border.BevelBorder;
+
+import gr.perisnik.cj.swing.util.DBUtil;
+
 import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -88,7 +91,7 @@ public class InsertTeacherForm extends JFrame {
 				String inputFirstname;
 				int n = 0;
 				
-				try (Connection conn = Menu.getConn();
+				try (Connection conn = DBUtil.getConnection();
 						PreparedStatement pr = conn.prepareStatement(sql);) {				
 					inputLastname = textLastname.getText().trim();
 					inputFirstname = textFirstname.getText().trim();

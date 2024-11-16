@@ -71,7 +71,7 @@ public class SearchUserForm extends JFrame {
 		btnClose.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Main.getSearchUserForm().setVisible(false);
-				Main.getMenu().setVisible(true);
+				Main.getWelcomeWindow().setVisible(true);
 			}
 		});
 		btnClose.setForeground(Color.RED);
