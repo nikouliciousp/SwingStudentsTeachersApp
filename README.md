@@ -21,6 +21,7 @@ Follow these steps to run the application:
 
 1. Clone the repository:
    
+   ```bash
    git clone https://github.com/username/SchoolManagementSystem.git
    
 3. Open the project in your preferred development environment.
@@ -29,6 +30,7 @@ Follow these steps to run the application:
 
 5. Compile and run the main class:
 
+   ```bash
    javac com/schoolmanagement/Main.java
    java com.schoolmanagement.Main
 
